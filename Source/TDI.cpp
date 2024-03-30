@@ -80,16 +80,26 @@ int main(int argc, char **argv)
 
 	originalMatrix.Read("matrix.txt");
 
+	std::cout << std::endl << std::endl;
+
 	originalMatrix.Print(1, 1);
 
 	C_Matrix copyMatrix(originalMatrix.FirstRow(), originalMatrix.LastRow() + 2, originalMatrix.FirstCol(), originalMatrix.LastCol() + 2, 0);
 
-	std::cout << std::endl << std::endl;
-
 	copyMatrixWithZeros(originalMatrix, copyMatrix);
 
-	copyMatrix.Print(1, 1);
+	std::cout << std::endl << std::endl;
 
-	return 0;
+	copyMatrix.Print(1, 1);
+	
+	//removeNoise(originalMatrix, copyMatrix);
+	
+	/*std::cout << std::endl << std::endl;
+
+	originalMatrix.Print(1, 1);
+
+	std::cout << std::endl;*/
+
 	//return Test(argc, argv);
+	return 0;
 }
