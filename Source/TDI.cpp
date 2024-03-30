@@ -3,6 +3,17 @@
 #include <C_Matrix.hpp>
 #include <C_Image.hpp>
 
+//int Test(int argc, char **argv);
+
+//void printMatrix(const std::vector<std::vector<int>>& matrix) {
+//	for (auto& rows : matrix) {
+//		for (auto element : rows) {
+//			std::cout << element << " ";
+//		}
+//		std::cout << std::endl;
+//	}
+//}
+
 //void copyMatrixWithZeros(const std::vector<std::vector<int>>& originalMatrix, std::vector<std::vector<int>>& copyMatrix) {
 //	int rows = copyMatrix.size();
 //	int columns = copyMatrix[0].size();
@@ -14,14 +25,21 @@
 //	}
 //}
 
-//void printMatrix(const std::vector<std::vector<int>>& matrix) {
-//	for (auto& rows : matrix) {
-//		for (auto element : rows) {
-//			std::cout << element << " ";
-//		}
-//		std::cout << std::endl;
-//	}
-//}
+int calculateMedian(const C_Matrix& copyMatrix) {
+	//Utilizar definicion de submatrix de uno de los constructores de C_Matrix
+	return 0;
+}
+
+void removeNoise(C_Matrix& originalMatrix, const C_Matrix& copyMatrix) {
+	int rows = originalMatrix.LastRow();
+	int columns = originalMatrix.LastCol();
+
+	for (int i = originalMatrix.FirstRow(); i <= rows; i++) {
+		for (int j = originalMatrix.FirstCol(); j <= columns; j++) {
+			originalMatrix(i, j) = calculateMedian(copyMatrix);
+		}
+	}
+}
 
 void copyMatrixWithZeros(C_Matrix& originalMatrix, C_Matrix& copyMatrix) {
 	int rows = copyMatrix.LastRow();
@@ -33,13 +51,6 @@ void copyMatrixWithZeros(C_Matrix& originalMatrix, C_Matrix& copyMatrix) {
 		}
 	}
 }
-
-void removeNoise(std::vector<std::vector<int>>& originalMatrix, C_Matrix& copyMatrix) {
-	int rows = originalMatrix.size();
-	int columns = originalMatrix[0].size();
-}
-
-//int Test(int argc, char **argv);
 
 int main(int argc, char **argv)
 {
@@ -74,8 +85,6 @@ int main(int argc, char **argv)
 	C_Matrix copyMatrix(originalMatrix.FirstRow(), originalMatrix.LastRow() + 2, originalMatrix.FirstCol(), originalMatrix.LastCol() + 2, 0);
 
 	std::cout << std::endl << std::endl;
-
-	//copyMatrix.Print(1, 1);
 
 	copyMatrixWithZeros(originalMatrix, copyMatrix);
 
