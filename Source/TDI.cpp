@@ -25,6 +25,8 @@
 //	}
 //}
 
+//Modificar para que reciva los indices a partir de la cual la submatriz copiara del copyMatrix para luego tenerla, 
+//vaciar sus elementos en un vector, ordenarlos y calcular la mediana dentro del vector
 int calculateMedian(const C_Matrix& copyMatrix) {
 	//Utilizar definicion de submatrix de uno de los constructores de C_Matrix
 	return 0;
