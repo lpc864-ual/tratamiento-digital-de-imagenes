@@ -1,0 +1,212 @@
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 35
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 22
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 15
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+Press ENTER to continue.
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 21
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 16
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 15
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 32
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+Press ENTER to continue.
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 13
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 16
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 16
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 22
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1164) Image to greyscale : 23
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 18
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 16
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 19
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1164) Image to greyscale : 21
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI T (Test, 1160) Reading image
+TDI T (Test, 1164) Image to greyscale : 29
+TDI T (Test, 1166) Writing image
+TDI T (Test, 1169) Image to negative
+TDI T (Test, 1173) Writing image
+TDI T (Test, 1176) Extracting t-shirt
+TDI T (Test, 1181) Writing image
+TDI T (Test, 1184) Coloring t-shirt
+TDI T (Test, 1186) Writing image
+Press ENTER to continue.
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
