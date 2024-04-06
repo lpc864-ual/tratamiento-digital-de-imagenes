@@ -29,25 +29,25 @@ void matrixToVector(C_Matrix& matrix, std::vector<int>& vector) {
 	}
 }
 
-void copiarContenidoMatriz(C_Image& imagen, C_Matrix& matrizCopiaContenido) {
+void copiarContenidoMatriz(C_Image& matrizImagen, C_Matrix& matrizCopiaContenido) {
 	int rows = matrizCopiaContenido.LastRow();
 	int columns = matrizCopiaContenido.LastCol();
 
 	for (int i = matrizCopiaContenido.FirstRow() + 1; i <= rows - 1; i++) {
 		for (int j = matrizCopiaContenido.FirstCol() + 1; j <= columns - 1; j++) {
-			matrizCopiaContenido(i, j) = imagen(i-1, j-1);
+			matrizCopiaContenido(i, j) = matrizImagen(i-1, j-1);
 		}
 	}
 }
 
-void eliminarRuido(C_Image& imagen)
+void eliminarRuido(C_Image& matrizImagen)
 {
 	//Definamos una matriz que será copia de la matriz de la imágen con la diferencia de que agregaremos sobre ella dos filas
 	//y dos columnas de ceros tanto al inicio como al final con el motivo de utilizarla para la eliminación de ruido
-	C_Matrix matrizCopiaContenido(imagen.FirstRow(), imagen.LastRow() + 2, imagen.FirstCol(), imagen.LastCol() + 2, 0);
+	C_Matrix matrizCopiaContenido(matrizImagen.FirstRow(), matrizImagen.LastRow() + 2, matrizImagen.FirstCol(), matrizImagen.LastCol() + 2, 0);
 
 	//Llamemos a la función que copia el contenido de una matriz en otra, guardando las diferencias del problema
-	copiarContenidoMatriz(imagen, matrizCopiaContenido);
+	copiarContenidoMatriz(matrizImagen, matrizCopiaContenido);
 
 	//Definamos el vector donde volcaremos los elementos de la futura submatriz para su tratamiento
 	std::vector<int> vector;
@@ -74,7 +74,7 @@ void eliminarRuido(C_Image& imagen)
 
 			//Reemplazamos el valor del pixel en la posición (i,j) por el valor de la mediana correspondiente dentro de la mascara centrada
 			//en ella 
-			imagen(i, j) = vector[vector.size() / 2];
+			matrizImagen(i, j) = vector[vector.size() / 2];
 
 			//Limpiemos el vector para futuras iteraciones
 			vector.clear();
@@ -84,17 +84,17 @@ void eliminarRuido(C_Image& imagen)
 
 int main(int argc, char **argv)
 {
-	//La clase C_Image define un cuerpo para trabajar con imagenes, entonces definamos un objeto de dicha clase llamada "image"
-	C_Image imagen;
+	//La clase C_Image define un cuerpo para trabajar con la matriz de una imagen, entonces definamos un objeto de dicha clase llamada "matrizImagen"
+	C_Image matrizImagen;
 
-	//Cargamos la imagen de prueba en el objeto definido con anterioridad
-	imagen.ReadBMP("bear_ruido.bmp");
+	//Obtengamos la matriz de la imagen de prueba
+	matrizImagen.ReadBMP("bear_ruido.bmp");
 
 	//Llamemos a la función que elimine el ruido estilo "sal-pimienta" de la imagen
-	eliminarRuido(imagen);
+	eliminarRuido(matrizImagen);
 
 	//Escribamos el contenido de la matriz sobre un archivo
-	imagen.Write("bear_sin_ruido.bmp");
+	matrizImagen.Write("bear_sin_ruido.bmp");
 
 	return 0;
 }
