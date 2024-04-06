@@ -3,7 +3,7 @@
 #include <C_Matrix.hpp>
 #include <C_Image.hpp>
 
-//int Test(int argc, char **argv);
+int Test(int argc, char **argv);
 
 //void printMatrix(const std::vector<std::vector<int>>& matrix) {
 //	for (auto& rows : matrix) {
@@ -32,13 +32,62 @@ int calculateMedian(const C_Matrix& copyMatrix) {
 	return 0;
 }
 
-void removeNoise(C_Matrix& originalMatrix, const C_Matrix& copyMatrix) {
-	int rows = originalMatrix.LastRow();
-	int columns = originalMatrix.LastCol();
+void printVector(std::vector<int>& vector) {
+	int n = vector.size();
 
-	for (int i = originalMatrix.FirstRow(); i <= rows; i++) {
-		for (int j = originalMatrix.FirstCol(); j <= columns; j++) {
-			originalMatrix(i, j) = calculateMedian(copyMatrix);
+	for (int i = 0; i < n; i++) {
+		std::cout << vector[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
+void bubbleSort(std::vector<int>& vector) {
+	int n = vector.size();
+
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - 1 - i; j++) {
+			if (vector[j] > vector[j + 1]) {
+				std::swap(vector[j], vector[j + 1]);
+			}
+		}
+	}
+}
+
+void matrixToVector(C_Matrix& matrix, std::vector<int>& vector) {
+	int rows = matrix.LastRow();
+	int columns = matrix.LastCol();
+
+	//Como las matrices empieza en uno, entonces llegaremos hasta i y j <= rows y <= columns respectivamente
+	for (int i = matrix.FirstRow(); i <= rows; i++) {
+		for (int j = matrix.FirstCol(); j <= columns; j++) {
+			vector.push_back(matrix(i, j));
+		}
+	}
+}
+
+void removeNoise(C_Matrix& originalMatrix, C_Matrix& copyMatrix) {
+	//Definimos el vector donde volcaremos los elementos de la submatriz para su tratamiento
+	std::vector<int> vector;
+	
+	int rows = copyMatrix.LastRow();
+	int columns = copyMatrix.LastCol();
+
+	//Iteramos hasta i <= rows - 2 y j <= colums - 2 para no considerar las filas y columnas de ceros para no desbordarnos al generar las submatrices.
+	//que usaremos para el calculo de la mediana de los pixeles que queremos. 
+	//Si rows y columns empezaran desde 0, entonces tendriamos que restar tres
+	for (int i = copyMatrix.FirstRow(); i <= rows - 2; i++) {
+		for (int j = copyMatrix.FirstCol(); j <= columns - 2; j++) {
+			//Utilizaremos una submatrix. Este submatrix no será copia de la original, entonces no trabajaremos sobre ella, pero si la usaremos 
+			//para facilitar el manejo sobre la matriz original
+			C_Matrix submatrix(copyMatrix, 1, 3, 1, 3, i, j);
+
+			matrixToVector(submatrix, vector);
+
+			bubbleSort(vector);
+
+			//Tomamos la mediana. Estamos trabajando con submatrices 3x3 para facilitar el calculo de la mediana debido que tendremos
+			//un vector de nueve elementos y entonces la mitad siempre será exactamente su tamaño entre dos 
+			originalMatrix(i, j) = vector[vector.size() / 2];
 		}
 	}
 }
@@ -79,6 +128,7 @@ int main(int argc, char **argv)
 	printMatrix(copyMatrix);*/
 
 	C_Matrix originalMatrix;
+	//std::vector<int> vector;
 
 	originalMatrix.Read("matrix.txt");
 
@@ -86,6 +136,18 @@ int main(int argc, char **argv)
 
 	originalMatrix.Print(1, 1);
 
+	std::cout << std::endl << std::endl;
+
+	/*matrixToVector(originalMatrix, vector);
+
+	printVector(vector);
+
+	bubbleSort(vector);
+
+	printVector(vector);
+
+	std::cout << std::endl << std::endl;*/
+	
 	C_Matrix copyMatrix(originalMatrix.FirstRow(), originalMatrix.LastRow() + 2, originalMatrix.FirstCol(), originalMatrix.LastCol() + 2, 0);
 
 	copyMatrixWithZeros(originalMatrix, copyMatrix);
@@ -93,15 +155,8 @@ int main(int argc, char **argv)
 	std::cout << std::endl << std::endl;
 
 	copyMatrix.Print(1, 1);
+
+	removeNoise(originalMatrix, copyMatrix);
 	
-	//removeNoise(originalMatrix, copyMatrix);
-	
-	/*std::cout << std::endl << std::endl;
-
-	originalMatrix.Print(1, 1);
-
-	std::cout << std::endl;*/
-
-	//return Test(argc, argv);
 	return 0;
 }

@@ -30,16 +30,16 @@ void Testimage();
 
 int Test(int argc, char **argv)
 {
-  /*EjemplosMatrices();
-  EjemplosSegmentacion();
+  EjemplosMatrices();
+  /*EjemplosSegmentacion();
 
   TestGeneral();
   TestTrace();
   TestFile();
   TestArguments(argc, argv);
   TestMatrix();
-  TestMatrixOperators();*/
-  Testimage();
+  TestMatrixOperators();
+  Testimage();*/
 
   Pause();
   return 0;
