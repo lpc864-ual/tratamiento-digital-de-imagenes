@@ -88,6 +88,9 @@ void removeNoise(C_Matrix& originalMatrix, C_Matrix& copyMatrix) {
 			//Tomamos la mediana. Estamos trabajando con submatrices 3x3 para facilitar el calculo de la mediana debido que tendremos
 			//un vector de nueve elementos y entonces la mitad siempre será exactamente su tamaño entre dos 
 			originalMatrix(i, j) = vector[vector.size() / 2];
+
+			//Limpiamos el vector
+			vector.clear();
 		}
 	}
 }
@@ -105,15 +108,14 @@ void copyMatrixWithZeros(C_Matrix& originalMatrix, C_Matrix& copyMatrix) {
 
 int main(int argc, char **argv)
 {
-	////La clase C_Image define un cuerpo para trabajar con imagenes, entonces definimos un objeto de dicha clase
+	//La clase C_Image define un cuerpo para trabajar con imagenes, entonces definimos un objeto de dicha clase
 	//C_Image image;
 
-	////Cargamos la imagen de prueba en el objeto definido con anterioridad
-	////image.ReadBMP("tomates_ruido.bmp");
+	//Cargamos la imagen de prueba en el objeto definido con anterioridad
 	//image.ReadBMP("tomates_ruido.bmp");
 
-	////Mostramos la matriz asociada a la imagen con ruido
-	////image.Print(1, 3);
+	//Mostramos la matriz asociada a la imagen con ruido
+	//image.Print(1, 3);
 
 	/*std::vector<std::vector<int>> originalMatrix =
 	{
@@ -127,36 +129,56 @@ int main(int argc, char **argv)
 	
 	printMatrix(copyMatrix);*/
 
-	C_Matrix originalMatrix;
-	//std::vector<int> vector;
+////
+	//C_Matrix originalMatrix;
+	////std::vector<int> vector;
 
-	originalMatrix.Read("matrix.txt");
+	//originalMatrix.Read("matrix.txt");
 
-	std::cout << std::endl << std::endl;
+	//std::cout << std::endl << std::endl;
 
-	originalMatrix.Print(1, 1);
+	//originalMatrix.Print(1, 1);
 
-	std::cout << std::endl << std::endl;
+	//std::cout << std::endl << std::endl;
 
-	/*matrixToVector(originalMatrix, vector);
+	///*matrixToVector(originalMatrix, vector);
 
-	printVector(vector);
+	//printVector(vector);
 
-	bubbleSort(vector);
+	//bubbleSort(vector);
 
-	printVector(vector);
+	//printVector(vector);
 
-	std::cout << std::endl << std::endl;*/
+	//std::cout << std::endl << std::endl;*/
+	//
+	//C_Matrix copyMatrix(originalMatrix.FirstRow(), originalMatrix.LastRow() + 2, originalMatrix.FirstCol(), originalMatrix.LastCol() + 2, 0);
+
+	//copyMatrixWithZeros(originalMatrix, copyMatrix);
+
+	//std::cout << std::endl << std::endl;
+
+	//copyMatrix.Print(1, 1);
+
+	//removeNoise(originalMatrix, copyMatrix);
+////
 	
-	C_Matrix copyMatrix(originalMatrix.FirstRow(), originalMatrix.LastRow() + 2, originalMatrix.FirstCol(), originalMatrix.LastCol() + 2, 0);
+	//La clase C_Image define un cuerpo para trabajar con imagenes, entonces definimos un objeto de dicha clase
+	C_Image image;
 
-	copyMatrixWithZeros(originalMatrix, copyMatrix);
+	//Cargamos la imagen de prueba en el objeto definido con anterioridad
+	image.ReadBMP("bear_ruido.bmp");
 
-	std::cout << std::endl << std::endl;
+	//Definimos una matriz copia de la original, pero con ceros
+	C_Matrix copyMatrix(image.FirstRow(), image.LastRow() + 2, image.FirstCol(), image.LastCol() + 2, 0);
 
-	copyMatrix.Print(1, 1);
+	//Copiamos su contenido
+	copyMatrixWithZeros(image, copyMatrix);
 
-	removeNoise(originalMatrix, copyMatrix);
-	
+	//Eliminamos el ruido
+	removeNoise(image, copyMatrix);
+
+	//Escribimos sobre un nuevo archivo
+	image.Write("bear_sin_ruido.bmp");
+
 	return 0;
 }
