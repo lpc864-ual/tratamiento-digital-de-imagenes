@@ -3,43 +3,7 @@
 #include <C_Matrix.hpp>
 #include <C_Image.hpp>
 
-int Test(int argc, char **argv);
-
-//void printMatrix(const std::vector<std::vector<int>>& matrix) {
-//	for (auto& rows : matrix) {
-//		for (auto element : rows) {
-//			std::cout << element << " ";
-//		}
-//		std::cout << std::endl;
-//	}
-//}
-
-//void copyMatrixWithZeros(const std::vector<std::vector<int>>& originalMatrix, std::vector<std::vector<int>>& copyMatrix) {
-//	int rows = copyMatrix.size();
-//	int columns = copyMatrix[0].size();
-//	
-//	for (int i = 1; i <= rows - 2; i++) {
-//		for (int j = 1; j <= columns - 2; j++) {
-//			copyMatrix[i][j] = originalMatrix[i-1][j-1];
-//		}
-//	}
-//}
-
-//Modificar para que reciva los indices a partir de la cual la submatriz copiara del copyMatrix para luego tenerla, 
-//vaciar sus elementos en un vector, ordenarlos y calcular la mediana dentro del vector
-int calculateMedian(const C_Matrix& copyMatrix) {
-	//Utilizar definicion de submatrix de uno de los constructores de C_Matrix
-	return 0;
-}
-
-void printVector(std::vector<int>& vector) {
-	int n = vector.size();
-
-	for (int i = 0; i < n; i++) {
-		std::cout << vector[i] << " ";
-	}
-	std::cout << std::endl;
-}
+//int Test(int argc, char **argv);
 
 void bubbleSort(std::vector<int>& vector) {
 	int n = vector.size();
@@ -108,59 +72,6 @@ void copyMatrixWithZeros(C_Matrix& originalMatrix, C_Matrix& copyMatrix) {
 
 int main(int argc, char **argv)
 {
-	//La clase C_Image define un cuerpo para trabajar con imagenes, entonces definimos un objeto de dicha clase
-	//C_Image image;
-
-	//Cargamos la imagen de prueba en el objeto definido con anterioridad
-	//image.ReadBMP("tomates_ruido.bmp");
-
-	//Mostramos la matriz asociada a la imagen con ruido
-	//image.Print(1, 3);
-
-	/*std::vector<std::vector<int>> originalMatrix =
-	{
-		{1, 2, 3, 4},
-		{5, 6, 7, 8}
-	};*/
-
-	/*std::vector<std::vector<int>> copyMatrix(originalMatrix.size()+2, std::vector<int>(originalMatrix[0].size()+2,0));
-	
-	copyMatrixWithZeros(originalMatrix, copyMatrix);
-	
-	printMatrix(copyMatrix);*/
-
-////
-	//C_Matrix originalMatrix;
-	////std::vector<int> vector;
-
-	//originalMatrix.Read("matrix.txt");
-
-	//std::cout << std::endl << std::endl;
-
-	//originalMatrix.Print(1, 1);
-
-	//std::cout << std::endl << std::endl;
-
-	///*matrixToVector(originalMatrix, vector);
-
-	//printVector(vector);
-
-	//bubbleSort(vector);
-
-	//printVector(vector);
-
-	//std::cout << std::endl << std::endl;*/
-	//
-	//C_Matrix copyMatrix(originalMatrix.FirstRow(), originalMatrix.LastRow() + 2, originalMatrix.FirstCol(), originalMatrix.LastCol() + 2, 0);
-
-	//copyMatrixWithZeros(originalMatrix, copyMatrix);
-
-	//std::cout << std::endl << std::endl;
-
-	//copyMatrix.Print(1, 1);
-
-	//removeNoise(originalMatrix, copyMatrix);
-////
 	
 	//La clase C_Image define un cuerpo para trabajar con imagenes, entonces definimos un objeto de dicha clase
 	C_Image image;
