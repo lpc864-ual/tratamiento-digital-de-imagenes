@@ -40,7 +40,7 @@ void copiarContenidoMatriz(C_Image& matrizImagen, C_Matrix& matrizCopiaContenido
 	}
 }
 
-void eliminarRuido(C_Image& matrizImagen)
+void mediana(C_Image& matrizImagen)
 {
 	//Definamos una matriz que será copia de la matriz de la imágen con la diferencia de que agregaremos sobre ella dos filas
 	//y dos columnas de ceros tanto al inicio como al final con el motivo de utilizarla para la eliminación de ruido
@@ -82,6 +82,11 @@ void eliminarRuido(C_Image& matrizImagen)
 	}
 }
 
+void convolucion(C_Image& matrizImagen) {
+	
+}
+
+
 int main(int argc, char **argv)
 {
 	//La clase C_Image define un cuerpo para trabajar con la matriz de una imagen, entonces definamos un objeto de dicha clase llamada "matrizImagen"
@@ -91,7 +96,7 @@ int main(int argc, char **argv)
 	matrizImagen.ReadBMP("bear_ruido.bmp");
 
 	//Llamemos a la función que elimine el ruido estilo "sal-pimienta" de la imagen
-	eliminarRuido(matrizImagen);
+	mediana(matrizImagen);
 
 	//Escribamos el contenido de la matriz sobre un archivo
 	matrizImagen.Write("bear_sin_ruido.bmp");
