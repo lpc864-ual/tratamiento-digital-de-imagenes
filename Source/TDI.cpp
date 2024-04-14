@@ -106,10 +106,12 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 	int diferenciaColumnas = columnasMascara - 1;
 
 	// Saltos bordes excepcionales maximo
+	// Relacionado con el numero de filas y columnas maximo que podremos descartar
 	int saltosFilasG = diferenciaFilas / 2;
 	int saltosColumnasG = diferenciaColumnas / 2;
 	
 	// Saltos de un pixel cualquiera
+	// Relacionado con el numero de filas y columnas que actualmente descartamos
 	int saltosFilas, saltosColumnas = 0;
 	
 
@@ -137,14 +139,8 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 				mascara.MoveSubMat(i, j);
 			}
 
-			// Procesamos al pixel segun su naturaleza
-			if (pixelExcepcional) {
-				// Cuando pasemos de matriz a vector, pasamos los saltos y copiaremos lenght - saltos (tanto de fila como columnas) respectivamente
-				matrixToVector(mascara, vector, saltosFilas, saltosColumnas);
-			}
-			else {
-				matrixToVector(mascara, vector, 0, 0);
-			}
+			// Volcamos los elementos de la matriz al vector
+			matrixToVector(mascara, vector, saltosFilas, saltosColumnas);
 
 			// Ordenamos el vector
 
@@ -153,6 +149,8 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 			// Limpiamos el vector
 			vector.clear();
 		}
+		saltosFilas = 0;
+		saltosColumnas = 0;
 	}
 }
 
