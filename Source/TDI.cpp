@@ -105,7 +105,7 @@ int main(int argc, char** argv)
 	for (int i = 0; i < 91; i++) std::cout << "-";
 	std::cout << " Bienvenido usuario ";
 	for (int i = 0; i < 100; i++) std::cout << "-";
-	std::cout << std::endl  << "El objetivo de este programa es eliminar ruido sal-pimienta de una imagen con formato BMP. Antes de seguir deben mencionarse ciertas restricciones: " << std::endl << std::endl;
+	std::cout << std::endl << "El objetivo de este programa es eliminar ruido sal-pimienta de una imagen con formato BMP. Antes de seguir deben mencionarse ciertas restricciones: " << std::endl << std::endl;
 	std::cout << "1. Si introduce el nombre de la imagen como ruta hacia ella, entonces, por defecto, el programa entiende que dicha imagen esta dentro de la carpeta Run del directorio del programa. " << std::endl;
 	std::cout << "2. Al momento de introducir el nombre de la imagen debe especificar su formato. En nuestro caso, estamos trabajando con imagenes en formato BMP." << std::endl;
 	std::cout << "3. Las dimensiones de la matriz que estaremos utilizando como mascara deben ser impar" << std::endl << std::endl;
@@ -113,8 +113,6 @@ int main(int argc, char** argv)
 	std::cout << "Una vez realizadas estas aclaraciones, empecemos. " << std::endl << std::endl;
 	std::cout << "Introduzca la ruta de la imagen con formato BMP con ruido sal-pimienta: ";
 	std::getline(std::cin, ruta_imagen_ruido);
-	std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
-	std::cin >> filas >> columnas;
 
 	// Obtenemos la matriz de la imagen 
 	matrizImagen.ReadBMP(ruta_imagen_ruido.c_str());
@@ -122,6 +120,23 @@ int main(int argc, char** argv)
 	// Por defecto, si la ruta especificada es incorrecta, entonces la matriz asociada a la imagen estará vacía.
 	// Como resultado, solo trabajaremos cuando la matriz asociada a la imagen no este vacía.
 	if (matrizImagen.Empty() != true) {
+
+		// Solicitamos al usuario las dimensiones de la mascara
+		std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
+		std::cin >> filas >> columnas;
+		// Si las dimensiones de la mascara no son impar, entonces mensaje de error y terminamos el programa
+		if (filas / 2 == 0 || columnas / 2 == 0) {
+			std::cout << "ERROR: El numero de filas o columnas es par cuando deben ser impar. " << std::endl;
+			return 0;
+		}
+
+		// Limpiamos el buffer de entrada para evitar futuros problemas. 
+		// En este código, std::numeric_limits<std::streamsize>::max() devuelve el número máximo de caracteres que se pueden
+		// extraer del stream. El carácter '\n' es el delimitador que indica hasta dónde se debe ignorar el stream.
+		// Por lo tanto, esta línea de código ignora todos los caracteres en el buffer de entrada hasta 
+		// que encuentra un salto de línea ('\n'), lo que efectivamente limpia el buffer.
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 		// Aplicamos el operador de la mediana sobre la imagen para eliminar gran parte del ruido.
 		mediana(matrizImagen);
 
