@@ -18,7 +18,7 @@ void bubbleSort(std::vector<int>& vector) {
 	}
 }
 
-void matrixToVector(C_Matrix& matrix, std::vector<int>& vector) {
+void matrixToVector(C_Matrix& matrix, std::vector<int>& vector, const int& saltosFilas, const int& saltosColumnas) {
 	int rows = matrix.LastRow();
 	int columns = matrix.LastCol();
 
@@ -41,49 +41,100 @@ void copiarContenidoMatriz(C_Image& matrizImagen, C_Matrix& matrizCopiaContenido
 	}
 }
 
-void mediana(C_Image& matrizImagen)
-{
-	//Definamos una matriz que será copia de la matriz de la imágen con la diferencia de que agregaremos sobre ella dos filas
-	//y dos columnas de ceros tanto al inicio como al final con el motivo de utilizarla para la eliminación de ruido
-	C_Matrix matrizCopiaContenido(matrizImagen.FirstRow(), matrizImagen.LastRow() + 2, matrizImagen.FirstCol(), matrizImagen.LastCol() + 2, 0);
+//void Mediana(C_Image& matrizImagen)
+//{
+//	//Definamos una matriz que será copia de la matriz de la imágen con la diferencia de que agregaremos sobre ella dos filas
+//	//y dos columnas de ceros tanto al inicio como al final con el motivo de utilizarla para la eliminación de ruido
+//	C_Matrix matrizCopiaContenido(matrizImagen.FirstRow(), matrizImagen.LastRow() + 2, matrizImagen.FirstCol(), matrizImagen.LastCol() + 2, 0);
+//
+//	//Llamemos a la función que copia el contenido de una matriz en otra, guardando las diferencias del problema
+//	copiarContenidoMatriz(matrizImagen, matrizCopiaContenido);
+//
+//	//Definamos el vector donde volcaremos los elementos de la futura submatriz para su tratamiento
+//	std::vector<int> vector;
+//
+//	//Definamos ciertas variables que estaremos utilizando
+//	int rows = matrizCopiaContenido.LastRow();
+//	int columns = matrizCopiaContenido.LastCol();
+//
+//	//Las respectivas matrices empiezan desde uno, entonces iteramos hasta rows/columns - 2 para no considerar las filas y columnas de ceros
+//	//agregadas al momento de reemplazar el pixel con ruido con su correspondiente valor sin ruido
+//	for (int i = matrizCopiaContenido.FirstRow(); i <= rows - 2; i++) {
+//		for (int j = matrizCopiaContenido.FirstCol(); j <= columns - 2; j++) {
+//			//Definamos una submatrix de dimension 3x3. Esta submatrix no será copia de la original, entonces no trabajaremos sobre ella,
+//			//pero si la usaremos para facilitar el manejo sobre la matriz original. La elección de dimensión 3x3 ha sido para 
+//			//para facilitar el calculo de la mediana debido que tendremos un vector de nueve elementos y, entonces, la mitad
+//			//siempre será exactamente su tamaño partido entre dos 
+//			C_Matrix submatrix(matrizCopiaContenido, 1, 3, 1, 3, i, j);
+//
+//			//Volquemos los elementos de la matriz al vector
+//			matrixToVector(submatrix, vector);
+//
+//			//Ordenemos los elementos del vector
+//			bubbleSort(vector);
+//
+//			//Reemplazamos el valor del pixel en la posición (i,j) por el valor de la mediana correspondiente dentro de la mascara centrada
+//			//en ella 
+//			matrizImagen(i, j) = vector[vector.size() / 2];
+//
+//			//Limpiemos el vector para futuras iteraciones
+//			vector.clear();
+//		}
+//	}
+//}
 
-	//Llamemos a la función que copia el contenido de una matriz en otra, guardando las diferencias del problema
-	copiarContenidoMatriz(matrizImagen, matrizCopiaContenido);
+void mediana(C_Image& matrizImagen, const int& filas, const int& columnas) {
+	// Declaramos la mascara como una submatriz de la matriz de la imagen que iremos desplazando sobre ella, descartando o no ciertas filas
+	// o columnas finales de la mascara segun la ubicacion del pixel
+	C_Matrix mascara(matrizImagen, 1, filas, 1, columnas, 1, 1);
 
-	//Definamos el vector donde volcaremos los elementos de la futura submatriz para su tratamiento
-	std::vector<int> vector;
+	// Declaramos un vector de entero cuyo caracter sera dinamico
+	std:vector<int> vector;
+	
+	// Declaramos una variable que sirva para determinar si un pixel se trata de un caso excepcional.
+	// Un pixel excepcional sera aquel que haga que la mascara, donde es el centro, sobresalga respecto a la matriz de la imagen
+	// Dependera de su ubicación en la matriz de la imagen y de las dimensiones de la mascara
+	bool pixelExcepcional = false;
 
-	//Definamos ciertas variables que estaremos utilizando
-	int rows = matrizCopiaContenido.LastRow();
-	int columns = matrizCopiaContenido.LastCol();
+	// si i = 1 o i = filas o j = 1 o j = columnas, entonces pixel excepcional 100%
+	// Partiendo de que filas como minimo es 3, entonces a partir de i = 1, si incremento a 5, entonces i = 2 tambien se cuenta y asi sigue... (lo mismo pasa al reves, i= filas, i =filas - 1...)
+	// Lo mismo ocurre con las columnas donde como minimo es 3, entonces a partir de j = 1, si incremento a 5, entonces j = 2 tambien se cuenta y asi sigue... (lo mismo pasa al reves, i= columnas, i =columnas - 1...)
 
-	//Las respectivas matrices empiezan desde uno, entonces iteramos hasta rows/columns - 2 para no considerar las filas y columnas de ceros
-	//agregadas al momento de reemplazar el pixel con ruido con su correspondiente valor sin ruido
-	for (int i = matrizCopiaContenido.FirstRow(); i <= rows - 2; i++) {
-		for (int j = matrizCopiaContenido.FirstCol(); j <= columns - 2; j++) {
-			//Definamos una submatrix de dimension 3x3. Esta submatrix no será copia de la original, entonces no trabajaremos sobre ella,
-			//pero si la usaremos para facilitar el manejo sobre la matriz original. La elección de dimensión 3x3 ha sido para 
-			//para facilitar el calculo de la mediana debido que tendremos un vector de nueve elementos y, entonces, la mitad
-			//siempre será exactamente su tamaño partido entre dos 
-			C_Matrix submatrix(matrizCopiaContenido, 1, 3, 1, 3, i, j);
+	int diferenciaFilas = filas - 3;
+	int diferenciaColumnas = columnas - 3;
 
-			//Volquemos los elementos de la matriz al vector
-			matrixToVector(submatrix, vector);
+	int saltosFilas = diferenciaFilas / 2;
+	int saltosColumnas = diferenciaColumnas / 2;
 
-			//Ordenemos los elementos del vector
-			bubbleSort(vector);
+	//Iteramos sobre la matriz de la imagen
+	for (int i = 1; i <= filas; i++) {
+		
+		// Determinamos si el pixel es excepcional basandonos en la fila donde se encuentra
+		if (1 <= i <= i + saltosFilas || filas - saltosFilas <= i <= filas) {
+			pixelExcepcional == true;
+		}
 
-			//Reemplazamos el valor del pixel en la posición (i,j) por el valor de la mediana correspondiente dentro de la mascara centrada
-			//en ella 
-			matrizImagen(i, j) = vector[vector.size() / 2];
+		for (int j = 1; j <= columnas; j++) {
+			// Determinar si el pixel se trata de un caso excepcional basandonos en la columna donde se encuentra
+			if (pixelExcepcional != true && (1 <= j <= j + saltosColumnas || columnas - saltosColumnas <= i <= columnas)) {
+				pixelExcepcional == true;
+			}
 
-			//Limpiemos el vector para futuras iteraciones
-			vector.clear();
+			// Procesamos al pixel segun su naturaleza
+			if (pixelExcepcional) {
+				// Cuando pasemos de matriz a vector, pasamos los saltos y copiaremos lenght - saltos (tanto de fila como columnas) respectivamente
+				matrixToVector(mascara, vector, saltosFilas, saltosColumnas);
+
+				// Trabajamos con el vector
+			}
+			else {
+				
+			}
 		}
 	}
 }
 
-void convolucion(C_Image& matrizImagen) {
+void convolucion(C_Image& matrizImagen, const int& filas, const int& columnas, const std::string& nombreFiltro) {
 
 }
 
@@ -138,7 +189,8 @@ int main(int argc, char** argv)
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		// Aplicamos el operador de la mediana sobre la imagen para eliminar gran parte del ruido.
-		mediana(matrizImagen);
+		//Mediana(matrizImagen);
+		mediana(matrizImagen, filas, columnas);
 
 		// Solicitamos al usuario la ruta donde será guardada la imagen sin ruido sal-pimienta
 		std::cout << "Introduzca la ruta donde sera la guardada la imagen con formato BMP sin ruido sal-pimienta: ";
