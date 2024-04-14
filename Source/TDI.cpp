@@ -105,13 +105,16 @@ int main(int argc, char** argv)
 	for (int i = 0; i < 91; i++) std::cout << "-";
 	std::cout << " Bienvenido usuario ";
 	for (int i = 0; i < 100; i++) std::cout << "-";
-	std::cout << std::endl  << "El objetivo de este programa es eliminar ruido sal-pimienta de una imagen con formato BMP. Antes de seguir debe mencionarse ciertas restricciones: " << std::endl << std::endl;
+	std::cout << std::endl  << "El objetivo de este programa es eliminar ruido sal-pimienta de una imagen con formato BMP. Antes de seguir deben mencionarse ciertas restricciones: " << std::endl << std::endl;
 	std::cout << "1. Si introduce el nombre de la imagen como ruta hacia ella, entonces, por defecto, el programa entiende que dicha imagen esta dentro de la carpeta Run del directorio del programa. " << std::endl;
-	std::cout << "2. Al momento de introducir el nombre de la imagen debe especificar su formato. En nuestro caso, estamos trabajando con imagenes en formato BMP." << std::endl << std::endl;
+	std::cout << "2. Al momento de introducir el nombre de la imagen debe especificar su formato. En nuestro caso, estamos trabajando con imagenes en formato BMP." << std::endl;
+	std::cout << "3. Las dimensiones de la matriz que estaremos utilizando como mascara deben ser impar" << std::endl << std::endl;
 	std::cout << "Como resultado de lo anterior, si tiene una imagen con formato BMP dentro de la carpeta Run, ubicado en el directorio del programa, entonces su ruta sera: nombreImagen.bmp" << std::endl << std::endl;
 	std::cout << "Una vez realizadas estas aclaraciones, empecemos. " << std::endl << std::endl;
 	std::cout << "Introduzca la ruta de la imagen con formato BMP con ruido sal-pimienta: ";
 	std::getline(std::cin, ruta_imagen_ruido);
+	std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
+	std::cin >> filas >> columnas;
 
 	// Obtenemos la matriz de la imagen 
 	matrizImagen.ReadBMP(ruta_imagen_ruido.c_str());

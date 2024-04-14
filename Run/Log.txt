@@ -244,3 +244,5 @@ TDI E (C_Image_BMP,  160) File doesn't exist : a
 TDI E (C_Image_BMP,  160) File doesn't exist : a
 TDI E (C_Image_BMP,  233) Can't write an empty matrix
 TDI E (C_Image_BMP,  160) File doesn't exist : a
+TDI E (C_Image_BMP,  160) File doesn't exist : a
+TDI E (C_Image_BMP,  160) File doesn't exist : a
