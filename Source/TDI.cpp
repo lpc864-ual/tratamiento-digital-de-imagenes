@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <C_Matrix.hpp>
 #include <C_Image.hpp>
@@ -35,7 +36,7 @@ void copiarContenidoMatriz(C_Image& matrizImagen, C_Matrix& matrizCopiaContenido
 
 	for (int i = matrizCopiaContenido.FirstRow() + 1; i <= rows - 1; i++) {
 		for (int j = matrizCopiaContenido.FirstCol() + 1; j <= columns - 1; j++) {
-			matrizCopiaContenido(i, j) = matrizImagen(i-1, j-1);
+			matrizCopiaContenido(i, j) = matrizImagen(i - 1, j - 1);
 		}
 	}
 }
@@ -83,23 +84,51 @@ void mediana(C_Image& matrizImagen)
 }
 
 void convolucion(C_Image& matrizImagen) {
-	
+
 }
 
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-	//La clase C_Image define un cuerpo para trabajar con la matriz de una imagen, entonces definamos un objeto de dicha clase llamada "matrizImagen"
+	// Declaramos variables.
+	// La primera servirá para guardar la ruta hacia la imagen que queramos procesar.
+	// La segunda servirá para guardar la ruta donde será guardada la imagen sin ruido.
+	// La tercera representa una instancia de la clase C_Image. Dicha clase define un cuerpo para trabajar con la matriz de una imagen
+	// Las dos últimas servirán para guardar tanto el numero de filas como el numero de columna de la matriz que estaremos utilizando como máscara 
+	// para el procesamiento de la imagen.
+	std::string ruta_imagen_ruido, ruta_imagen_sin_ruido;
 	C_Image matrizImagen;
+	int filas, columnas;
 
-	//Obtengamos la matriz de la imagen de prueba
-	matrizImagen.ReadBMP("bear_ruido.bmp");
+	// Realizamos la presentación de nuestro programa indicando tanto su objetivo como sus restricciones.
+	// De igual modo, solicitamos al usuario la ruta de la imagen con ruido sal-pimienta y que será procesada para su tratamiento.
+	for (int i = 0; i < 91; i++) std::cout << "-";
+	std::cout << " Bienvenido usuario ";
+	for (int i = 0; i < 100; i++) std::cout << "-";
+	std::cout << std::endl  << "El objetivo de este programa es eliminar ruido sal-pimienta de una imagen con formato BMP. Antes de seguir debe mencionarse ciertas restricciones: " << std::endl << std::endl;
+	std::cout << "1. Si introduce el nombre de la imagen como ruta hacia ella, entonces, por defecto, el programa entiende que dicha imagen esta dentro de la carpeta Run del directorio del programa. " << std::endl;
+	std::cout << "2. Al momento de introducir el nombre de la imagen debe especificar su formato. En nuestro caso, estamos trabajando con imagenes en formato BMP." << std::endl << std::endl;
+	std::cout << "Como resultado de lo anterior, si tiene una imagen con formato BMP dentro de la carpeta Run, ubicado en el directorio del programa, entonces su ruta sera: nombreImagen.bmp" << std::endl << std::endl;
+	std::cout << "Una vez realizadas estas aclaraciones, empecemos. " << std::endl << std::endl;
+	std::cout << "Introduzca la ruta de la imagen con formato BMP con ruido sal-pimienta: ";
+	std::getline(std::cin, ruta_imagen_ruido);
 
-	//Llamemos a la función que elimine el ruido estilo "sal-pimienta" de la imagen
-	mediana(matrizImagen);
+	// Obtenemos la matriz de la imagen 
+	matrizImagen.ReadBMP(ruta_imagen_ruido.c_str());
 
-	//Escribamos el contenido de la matriz sobre un archivo
-	matrizImagen.Write("bear_sin_ruido.bmp");
+	// Por defecto, si la ruta especificada es incorrecta, entonces la matriz asociada a la imagen estará vacía.
+	// Como resultado, solo trabajaremos cuando la matriz asociada a la imagen no este vacía.
+	if (matrizImagen.Empty() != true) {
+		// Aplicamos el operador de la mediana sobre la imagen para eliminar gran parte del ruido.
+		mediana(matrizImagen);
+
+		// Solicitamos al usuario la ruta donde será guardada la imagen sin ruido sal-pimienta
+		std::cout << "Introduzca la ruta donde sera la guardada la imagen con formato BMP sin ruido sal-pimienta: ";
+		std::getline(std::cin, ruta_imagen_sin_ruido);
+
+		// Escribamos el contenido de la matriz sobre un archivo
+		matrizImagen.Write(ruta_imagen_sin_ruido.c_str());
+	}
 
 	return 0;
 }

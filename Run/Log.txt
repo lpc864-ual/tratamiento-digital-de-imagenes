@@ -225,3 +225,22 @@ TDI E (C_Matrix,  246) Index out of matrix boundaries
 Press ENTER to continue.
 Press ENTER to continue.
 Press ENTER to continue.
+TDI E (C_Image_BMP,  160) File doesn't exist : b
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : b
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : be
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : D:\Usuarios\Luis Peraza Corobo\Downloads\bear
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : D:\Usuarios\Luis Peraza Corobo\Downloads\bear.bmp
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : joker_ruido
+TDI E (C_Image_BMP,  160) File doesn't exist : a
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : a
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : a
+TDI E (C_Image_BMP,  160) File doesn't exist : a
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  160) File doesn't exist : a
