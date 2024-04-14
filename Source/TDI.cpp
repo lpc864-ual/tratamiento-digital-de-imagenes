@@ -23,8 +23,8 @@ void matrixToVector(C_Matrix& matrix, std::vector<int>& vector, const int& salto
 	int columns = matrix.LastCol();
 
 	//Como las matrices empieza en uno, entonces llegaremos hasta i y j <= rows y <= columns respectivamente
-	for (int i = matrix.FirstRow(); i <= rows; i++) {
-		for (int j = matrix.FirstCol(); j <= columns; j++) {
+	for (int i = matrix.FirstRow(); i <= rows - saltosFilas; i++) {
+		for (int j = matrix.FirstCol(); j <= columns - saltosColumnas; j++) {
 			vector.push_back(matrix(i, j));
 		}
 	}
@@ -83,10 +83,10 @@ void copiarContenidoMatriz(C_Image& matrizImagen, C_Matrix& matrizCopiaContenido
 //	}
 //}
 
-void mediana(C_Image& matrizImagen, const int& filas, const int& columnas) {
+void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara) {
 	// Declaramos la mascara como una submatriz de la matriz de la imagen que iremos desplazando sobre ella, descartando o no ciertas filas
 	// o columnas finales de la mascara segun la ubicacion del pixel
-	C_Matrix mascara(matrizImagen, 1, filas, 1, columnas, 1, 1);
+	C_Matrix mascara(matrizImagen, 1, filasMascara, 1, columnasMascara, 1, 1);
 
 	// Declaramos un vector de entero cuyo caracter sera dinamico
 	std:vector<int> vector;
@@ -100,36 +100,58 @@ void mediana(C_Image& matrizImagen, const int& filas, const int& columnas) {
 	// Partiendo de que filas como minimo es 3, entonces a partir de i = 1, si incremento a 5, entonces i = 2 tambien se cuenta y asi sigue... (lo mismo pasa al reves, i= filas, i =filas - 1...)
 	// Lo mismo ocurre con las columnas donde como minimo es 3, entonces a partir de j = 1, si incremento a 5, entonces j = 2 tambien se cuenta y asi sigue... (lo mismo pasa al reves, i= columnas, i =columnas - 1...)
 
-	int diferenciaFilas = filas - 3;
-	int diferenciaColumnas = columnas - 3;
+	//Cambiar nombre de variable a otro mas descriptivo
+	//Minimamente filas y columnas son uno, entonces saltos en los bordes excepcionales como mucho es de 1: 3 - 1 = 2 --> 2/2 = 1. Asi con los demas
+	int diferenciaFilas = filasMascara - 1;
+	int diferenciaColumnas = columnasMascara - 1;
 
-	int saltosFilas = diferenciaFilas / 2;
-	int saltosColumnas = diferenciaColumnas / 2;
+	// Saltos bordes excepcionales maximo
+	int saltosFilasG = diferenciaFilas / 2;
+	int saltosColumnasG = diferenciaColumnas / 2;
+	
+	// Saltos de un pixel cualquiera
+	int saltosFilas, saltosColumnas = 0;
+	
 
 	//Iteramos sobre la matriz de la imagen
-	for (int i = 1; i <= filas; i++) {
+	for (int i = 1; i <= filasMascara; i++) {
 		
 		// Determinamos si el pixel es excepcional basandonos en la fila donde se encuentra
-		if (1 <= i <= i + saltosFilas || filas - saltosFilas <= i <= filas) {
-			pixelExcepcional == true;
+		if (1 <= i <= i + saltosFilasG || filasMascara - saltosFilasG <= i <= filasMascara) {
+			pixelExcepcional = true;
+			// Si fuera 3x3 descartariamos una fila. Si i = 1 tendriamos que descartar saltosFilasG = 1
+			// Si fuera 5x5 descartariamos dos filas. Si i = 1 tendriamos que descartar saltosFilasG = 2, pero si fuera i = 2, solo tendriamos que
+			// descartar una fila, es decir, saltosFilasG - 1. So on
+			saltosFilas = saltosFilasG - (i-1);
 		}
 
-		for (int j = 1; j <= columnas; j++) {
+		for (int j = 1; j <= columnasMascara; j++) {
 			// Determinar si el pixel se trata de un caso excepcional basandonos en la columna donde se encuentra
-			if (pixelExcepcional != true && (1 <= j <= j + saltosColumnas || columnas - saltosColumnas <= i <= columnas)) {
-				pixelExcepcional == true;
+			if (pixelExcepcional != true && (1 <= j <= j + saltosColumnasG || columnasMascara - saltosColumnasG <= i <= columnasMascara)) {
+				pixelExcepcional = true;
+				saltosColumnas = saltosColumnasG - (j - 1);
+			}
+
+			// Desplazamos la mascara
+			if (i != 1 || j != 1) {
+				mascara.MoveSubMat(i, j);
 			}
 
 			// Procesamos al pixel segun su naturaleza
 			if (pixelExcepcional) {
 				// Cuando pasemos de matriz a vector, pasamos los saltos y copiaremos lenght - saltos (tanto de fila como columnas) respectivamente
 				matrixToVector(mascara, vector, saltosFilas, saltosColumnas);
-
-				// Trabajamos con el vector
 			}
 			else {
-				
+				matrixToVector(mascara, vector, 0, 0);
 			}
+
+			// Ordenamos el vector
+
+			// Reemplazamos el pixel de la matriz de la imagen por su mediana según la mascara
+
+			// Limpiamos el vector
+			vector.clear();
 		}
 	}
 }
@@ -149,7 +171,7 @@ int main(int argc, char** argv)
 	// para el procesamiento de la imagen.
 	std::string ruta_imagen_ruido, ruta_imagen_sin_ruido;
 	C_Image matrizImagen;
-	int filas, columnas;
+	int filasMascara, columnasMascara;
 
 	// Realizamos la presentación de nuestro programa indicando tanto su objetivo como sus restricciones.
 	// De igual modo, solicitamos al usuario la ruta de la imagen con ruido sal-pimienta y que será procesada para su tratamiento.
@@ -174,9 +196,9 @@ int main(int argc, char** argv)
 
 		// Solicitamos al usuario las dimensiones de la mascara
 		std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
-		std::cin >> filas >> columnas;
+		std::cin >> filasMascara >> columnasMascara;
 		// Si las dimensiones de la mascara no son impar, entonces mensaje de error y terminamos el programa
-		if (filas / 2 == 0 || columnas / 2 == 0) {
+		if (filasMascara / 2 == 0 || columnasMascara / 2 == 0) {
 			std::cout << "ERROR: El numero de filas o columnas es par cuando deben ser impar. " << std::endl;
 			return 0;
 		}
@@ -190,7 +212,7 @@ int main(int argc, char** argv)
 
 		// Aplicamos el operador de la mediana sobre la imagen para eliminar gran parte del ruido.
 		//Mediana(matrizImagen);
-		mediana(matrizImagen, filas, columnas);
+		mediana(matrizImagen, filasMascara, columnasMascara);
 
 		// Solicitamos al usuario la ruta donde será guardada la imagen sin ruido sal-pimienta
 		std::cout << "Introduzca la ruta donde sera la guardada la imagen con formato BMP sin ruido sal-pimienta: ";
