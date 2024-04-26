@@ -250,3 +250,7 @@ TDI E (C_Image_BMP,  160) File doesn't exist : a
 TDI E (C_Image_BMP,  160) File doesn't exist : a
 TDI E (C_Image_BMP,  288) Could not open file : 
 TDI E (C_Image_BMP,  288) Could not open file : 
+TDI E (C_Image_BMP,  160) File doesn't exist : bear_ruido
+TDI E (C_Image_BMP,  160) File doesn't exist : bear_ruido
+TDI E (C_Image_BMP,  160) File doesn't exist : joker.bmp
+TDI E (C_Image_BMP,  160) File doesn't exist : joke_ruido.bmp

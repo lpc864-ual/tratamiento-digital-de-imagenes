@@ -1,8 +1,10 @@
+# README DESACTUALIZADO (¡NO LEER!)
+
 # Nuestro objetivo
 
 El objetivo primario es eliminar el ruido de tipo sal-pimienta de una imagen. Opcionalmente, se tiene la motivación de realizar detección de bordes siguiendo cierto umbral.
 
-# Nuestro esquema
+# Nuestro esquema 
 
 El programa recibe como parametro la ruta hacia la imagen con ruido de tipo sal-pimienta. La imagen debe encontrarse dentro del proyecto en la carpeta **Run**.
 De igual modo, recibirá las dimensiones de la matriz que estaremos utilizando como máscara en los diversos algoritmos que estemos empleando para conseguir nuestro objetivo. Opcionalmente, recibiría un umbral, necesario si queremos realizar la detección de bordes. 
