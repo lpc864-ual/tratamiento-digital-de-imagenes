@@ -86,7 +86,7 @@ void copiarContenidoMatriz(C_Image& matrizImagen, C_Matrix& matrizCopiaContenido
 void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara) {
 	// Declaramos la mascara como una submatriz de la matriz de la imagen que iremos desplazando sobre ella, descartando o no ciertas filas
 	// o columnas finales de la mascara segun la ubicacion del pixel
-	C_Matrix mascara(matrizImagen, 1, filasMascara, 1, columnasMascara, 1, 1);
+	C_Matrix mascara(matrizImagen, matrizImagen.FirstRow(), filasMascara, matrizImagen.FirstCol(), columnasMascara, 1, 1);
 
 	// Declaramos un vector de entero cuyo caracter sera dinamico
 	std:vector<int> vector;
@@ -113,9 +113,8 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 	// Saltos de un pixel cualquiera
 	// Relacionado con el numero de filas y columnas que actualmente descartamos
 	int saltosFilas, saltosColumnas = 0;
-	
 
-	//Iteramos sobre la matriz de la imagen
+	// Iteramos sobre la matriz de la imagen
 	for (int i = 1; i <= filasMascara; i++) {
 		
 		// Determinamos si el pixel es excepcional basandonos en la fila donde se encuentra
@@ -140,6 +139,7 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 			}
 
 			// Volcamos los elementos de la matriz al vector
+			//¡ESPECIFICAR LOS INDICES DEL PIXEL PARA LOCALICARLO Y FIRST ROW/COL SERA LA DEL PIXEL!
 			matrixToVector(mascara, vector, saltosFilas, saltosColumnas);
 
 			// Ordenamos el vector
