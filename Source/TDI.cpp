@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include <C_Matrix.hpp>
 #include <C_Image.hpp>
 
@@ -18,7 +19,7 @@ void bubbleSort(std::vector<int>& vector) {
 	}
 }
 
-void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara) {
+void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara, C_Image& matrizResultado) {
 	// Almacenamos en variables los valores devueltos por las siguientes funciones para mejorar la eficiencia del programa
 	int primeraFilaMatrizImagen = matrizImagen.FirstRow();
 	int primeraColumnaMatrizImagen = matrizImagen.FirstCol();
@@ -30,7 +31,7 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 	int mitadColumnasMascara = columnasMascara / 2;
 
 	// Declaramos un vector de entero cuyo caracter sera dinamico
-std:vector<int> vector;
+	std:vector<int> vector;
 
 	// Iteramos sobre la matriz de la imagen
 	for (int fila = matrizImagen.FirstRow(); fila <= ultimaFilaMatrizImagen; fila++) {
@@ -42,15 +43,15 @@ std:vector<int> vector;
 				for (int columnaMascara = columna - mitadColumnasMascara; columnaMascara <= columna + mitadColumnasMascara; columnaMascara++) {
 					// Determinamos si la columna del pixel de la mascara seria valida con respecto a la matriz de la imagen
 					if (columnaMascara < primeraColumnaMatrizImagen || columnaMascara > ultimaColumnaMatrizImagen) continue;
-					// Añadimos al vector
+					// Anadimos al vector
 					vector.push_back(matrizImagen(filaMascara, columnaMascara));
 				}
 			}
 			// Ordenamos el vector
 			bubbleSort(vector);
 
-			// Reemplazamos el pixel de la matriz de la imagen por su mediana según la mascara
-			matrizImagen(fila, columna) = vector[(vector.size()) / 2];
+			// Reemplazamos el pixel de la matriz de la imagen por su mediana segï¿½n la mascara
+			matrizResultado(fila, columna) = vector[(vector.size()) / 2];
 
 			// Limpiamos el vector
 			vector.clear();
@@ -58,72 +59,214 @@ std:vector<int> vector;
 	}
 }
 
-void convolucion(C_Image& matrizImagen, const int& filas, const int& columnas, const std::string& nombreFiltro) {
+/*
+	TERMINAR: METER ELEMENTOS DE LA MATRIZ DE LA MASCARA AL VECTOR, MULTIPLICAR ELEMENTOS DE VECTORES UNO Y A UNO, GUARDARLO EN UN VECTOR
+	RESULTADO Y MULTIPLICAR LOS ELEMENTOS DE DICHO VECTOR RESULTADO
+*/
 
+void convolucion(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara, C_Matrix& matrizMascara, C_Image& matrizResultado) {
+	// Almacenamos en variables los valores devueltos por las siguientes funciones para mejorar la eficiencia del programa
+	int primeraFilaMatrizImagen = matrizImagen.FirstRow();
+	int primeraColumnaMatrizImagen = matrizImagen.FirstCol();
+	int ultimaFilaMatrizImagen = matrizImagen.LastRow();
+	int ultimaColumnaMatrizImagen = matrizImagen.LastCol();
+
+	// Dividimos la mascara por la mitad
+	int mitadFilasMascara = filasMascara / 2;
+	int mitadColumnasMascara = columnasMascara / 2;
+
+	// Declaramos un vector de entero cuyo caracter sera dinamico
+	std:vector<int> vector, vectorMascara;
+
+	// Iteramos sobre la matriz de la imagen
+	for (int fila = matrizImagen.FirstRow(); fila <= ultimaFilaMatrizImagen; fila++) {
+		for (int columna = matrizImagen.FirstCol(); columna <= ultimaColumnaMatrizImagen; columna++) {
+			// Iteramos sobre la mascara
+			for (int filaMascara = fila - mitadFilasMascara; filaMascara <= fila + mitadFilasMascara; filaMascara++) {
+				// Determinamos si la fila del pixel de la mascara seria valida con respecto a la matriz de la imagen
+				if (filaMascara < primeraFilaMatrizImagen || filaMascara > ultimaFilaMatrizImagen) continue;
+				for (int columnaMascara = columna - mitadColumnasMascara; columnaMascara <= columna + mitadColumnasMascara; columnaMascara++) {
+					// Determinamos si la columna del pixel de la mascara seria valida con respecto a la matriz de la imagen
+					if (columnaMascara < primeraColumnaMatrizImagen || columnaMascara > ultimaColumnaMatrizImagen) continue;
+					// Anadimos al vector
+					vector.push_back(matrizImagen(filaMascara, columnaMascara));
+					//vectorMascara.push_back(matrizMascara(fi))
+				}
+			}
+
+			// Reemplazamos el pixel de la matriz de la imagen por su mediana segï¿½n la mascara
+			matrizResultado(fila, columna) = vector[(vector.size()) / 2];
+
+			// Limpiamos el vector
+			vector.clear();
+		}
+	}
 }
 
+/*
+	TERMINAR: DEFINIR LAS DISTINTAS MASCARAS
+*/
 
 int main(int argc, char** argv)
 {
 	// Declaramos variables.
-	// La primera servirá para guardar la ruta hacia la imagen que queramos procesar.
-	// La segunda servirá para guardar la ruta donde será guardada la imagen sin ruido.
-	// La tercera representa una instancia de la clase C_Image. Dicha clase define un cuerpo para trabajar con la matriz de una imagen
-	// Las dos últimas servirán para guardar tanto el numero de filas como el numero de columna de la matriz que estaremos utilizando como máscara 
+	// La primera servira para guardar la ruta hacia la imagen que queramos procesar.
+	// La segunda servira para guardar la ruta donde sera guardada la imagen procesada.
+	// La tercera y la cuarta representan instancias de la clase C_Image. Dicha clase define un cuerpo para trabajar con la matriz de una imagen
+	// Las dos ultimas serviran para guardar tanto el numero de filas como el numero de columna de la matriz que estaremos utilizando como mascara 
 	// para el procesamiento de la imagen.
-	std::string ruta_imagen_ruido, ruta_imagen_sin_ruido;
-	C_Image matrizImagen;
-	int filasMascara, columnasMascara;
+	std::string ruta_imagen_ruido, ruta_imagen_sin_ruido, ruta_mascara;
+	C_Image matrizInicial, matrizResultado;
+	C_Matrix matrizMascara;
+	int opcion, filasMascara, columnasMascara;
+	bool aux = false;
 
-	// Realizamos la presentación de nuestro programa indicando tanto su objetivo como sus restricciones.
-	// De igual modo, solicitamos al usuario la ruta de la imagen con ruido sal-pimienta y que será procesada para su tratamiento.
-	for (int i = 0; i < 91; i++) std::cout << "-";
-	std::cout << " Bienvenido usuario ";
-	for (int i = 0; i < 100; i++) std::cout << "-";
-	std::cout << std::endl << "El objetivo de este programa es eliminar ruido sal-pimienta de una imagen con formato BMP. Antes de seguir deben mencionarse ciertas restricciones: " << std::endl << std::endl;
-	std::cout << "1. Si introduce el nombre de la imagen como ruta hacia ella, entonces, por defecto, el programa entiende que dicha imagen esta dentro de la carpeta Run del directorio del programa. " << std::endl;
-	std::cout << "2. Al momento de introducir el nombre de la imagen debe especificar su formato. En nuestro caso, estamos trabajando con imagenes en formato BMP." << std::endl;
-	std::cout << "3. Las dimensiones de la matriz que estaremos utilizando como mascara deben ser impar" << std::endl << std::endl;
-	std::cout << "Como resultado de lo anterior, si tiene una imagen con formato BMP dentro de la carpeta Run, ubicado en el directorio del programa, entonces su ruta sera: nombreImagen.bmp" << std::endl << std::endl;
-	std::cout << "Una vez realizadas estas aclaraciones, empecemos. " << std::endl << std::endl;
+	do 
+	{
+		// Realizamos la cabecera de nuestro programa
+		for (int i = 0; i < 91; i++) std::cout << "-";
+		std::cout << " Bienvenido usuario ";
+		for (int i = 0; i < 100; i++) std::cout << "-";
 
-	std::cout << "Introduzca la ruta de la imagen con formato BMP con ruido sal-pimienta: ";
-	std::getline(std::cin, ruta_imagen_ruido);
+		// Indicamos tanto el objetivo como las restricciones de nuestro programa
+		std::cout << endl;
+		std::cout << "El objetivo de este programa es el procesamiento de una imagen. Antes de seguir deben mencionarse ciertas restricciones: " << std::endl << std::endl;
+		std::cout << "1. Al momento de introducir la ruta hacia la imagen, el programa entiende que si introduce el nombre de la imagen como ruta, entonces dicha imagen esta dentro de la carpeta Run del directorio del programa." << std::endl << std::endl;
+		std::cout << "2. Al momento de introducir el nombre de la imagen debe especificar su formato. En nuestro caso, estamos trabajando con imagenes en formato BMP." << std::endl << std::endl;
+		std::cout << "3. Al momento de procesar la imagen estaremos utilizando matrices de dimensiones impar como mascaras." << std::endl << std::endl;
+		std::cout << "Una vez realizadas estas aclaraciones, empecemos. " << std::endl << std::endl;
 
-	// Obtenemos la matriz de la imagen 
-	matrizImagen.ReadBMP(ruta_imagen_ruido.c_str());
+		// Solicitamos al usuario la ruta de la imagen que quiere procesar
+		std::cout << "Introduzca la ruta de la imagen con intencion de procesar: ";
+		std::getline(std::cin, ruta_imagen_ruido);
 
-	// Por defecto, si la ruta especificada es incorrecta, entonces la matriz asociada a la imagen estará vacía.
-	// Como resultado, solo trabajaremos cuando la matriz asociada a la imagen no este vacía.
-	if (matrizImagen.Empty() != true) {
+		// Obtenemos la matriz de la imagen 
+		matrizInicial.ReadBMP(ruta_imagen_ruido.c_str());
 
-		// Solicitamos al usuario las dimensiones de la mascara
-		std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
-		std::cin >> filasMascara >> columnasMascara;
-		// Si las dimensiones de la mascara no son impar, entonces mensaje de error y terminamos el programa
-		if (filasMascara / 2 == 0 || columnasMascara / 2 == 0) {
-			std::cout << "ERROR: El numero de filas o columnas es par cuando deben ser impar. " << std::endl;
-			return 0;
-		}
+		// Controlar error para que si salta no pidamos ninguna opcion de procesado
 
-		// Limpiamos el buffer de entrada para evitar futuros problemas. 
-		// En este código, std::numeric_limits<std::streamsize>::max() devuelve el número máximo de caracteres que se pueden
-		// extraer del stream. El carácter '\n' es el delimitador que indica hasta dónde se debe ignorar el stream.
-		// Por lo tanto, esta línea de código ignora todos los caracteres en el buffer de entrada hasta 
-		// que encuentra un salto de línea ('\n'), lo que efectivamente limpia el buffer.
+		// Matriz donde guardaremos el resultado de procesar sobre la matriz de la imagen
+		matrizResultado.Resize(matrizInicial.FirstRow(), matrizInicial.LastRow(), matrizInicial.FirstCol(), matrizInicial.LastCol(), 0);
+
+		// Mostramos al usuario las opciones de procesado
+		std::cout << endl << "Opciones de procesado: " << std::endl << std::endl;
+		std::cout << "1. Eliminacion de ruido" << std::endl;
+		std::cout << "   1. Filtro de la mediana" << std::endl << std::endl;
+		std::cout << "2. Suavizado" << std::endl;
+		std::cout << "   1. Filtro de la media" << std::endl;
+		std::cout << "   2. Filtro de gaussiano" << std::endl << std::endl;
+		std::cout << "3. Deteccion de bordes" << std::endl;
+		std::cout << "   1. Filtro de Roberts" << std::endl;
+		std::cout << "   2. Filtro de Prewitt" << std::endl;
+		std::cout << "   3. Filtro de Sobel" << std::endl;
+		std::cout << "   4. Filtro de Marr-Hildreth" << std::endl;
+		std::cout << "   5. Filtro Laplaciano" << std::endl << std::endl;
+		std::cout << "4. Personalizado" << std::endl << std::endl;
+
+		std::cout << "Introduzca una opcion (P.E. 11): ";
+		std::cin >> opcion;
+
+		std::cout << endl << endl;;
+
+		// Ignorar el carÃ¡cter de nueva lÃ­nea pendiente para evitar futuros problemas
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		// Aplicamos el operador de la mediana sobre la imagen para eliminar gran parte del ruido.
-		//Mediana(matrizImagen);
-		mediana(matrizImagen, filasMascara, columnasMascara);
+		// 
+		if (opcion == 11 || opcion == 21) {
+			std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
+			std::cin >> filasMascara >> columnasMascara;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			if (filasMascara / 2 == 0 || columnasMascara / 2 == 0) {
+				std::cout << "ERROR: El numero de filas o columnas es par cuando deben ser impar. " << std::endl;
+				aux == true;
+			}
+			else if (opcion == 11) {
+				mediana(matrizInicial, filasMascara, columnasMascara, matrizResultado);
+			}
+			else {
+				int constante = 1 / (filasMascara * columnasMascara);
+				matrizMascara.Resize(1, filasMascara, 1, columnasMascara, 0);
 
-		// Solicitamos al usuario la ruta donde será guardada la imagen sin ruido sal-pimienta
-		std::cout << "Introduzca la ruta donde sera la guardada la imagen con formato BMP sin ruido sal-pimienta: ";
-		std::getline(std::cin, ruta_imagen_sin_ruido);
+				for (int i = 1; i <= matrizMascara.LastRow(); i++) {
+					for (int j = 1; j <= matrizMascara.LastCol(); j++) {
+						matrizMascara(i, j) = constante;
+					}
+				}
 
-		// Escribamos el contenido de la matriz sobre un archivo
-		matrizImagen.Write(ruta_imagen_sin_ruido.c_str());
+				convolucion(matrizInicial, filasMascara, columnasMascara, matrizMascara, matrizResultado);
+			}
+		}
+		else if (opcion == 22 || opcion == 31 || opcion == 32 || opcion == 33 || opcion == 35) {
+			matrizMascara.Resize(1, 3, 1, 3, 0);
 
-		return 0;
-	}
+			if (opcion == 22) {
+				// Determinar valor de sigma
+			}
+			else if (31 <= opcion <= 33) {
+				// Preguntar si quiere detectar horizantal, verticales o ambas
+			}
+			else {
+				// Preguntar si quiere detectar diagonales tambien
+			}
+		}
+		else if (opcion == 34) {
+			matrizMascara.Resize(1, 5, 1, 5, 0);
+
+			for (int i = 1; i < matrizMascara.LastRow(); i++) {
+				if (i == 1 || i == 5) {
+					matrizMascara(i, 1) = 0;
+					matrizMascara(i, 2) = 0;
+					matrizMascara(i, 3) = -1;
+					matrizMascara(i, 4) = 0;
+					matrizMascara(i, 5) = 0;
+				}
+				else if (i == 2 || i == 4) {
+					matrizMascara(1, 1) = 0;
+					matrizMascara(1, 2) = -1;
+					matrizMascara(1, 3) = -2;
+					matrizMascara(1, 4) = -1;
+					matrizMascara(1, 5) = 0;
+				}
+				else {
+					matrizMascara(2, 1) = -1;
+					matrizMascara(2, 2) = -2;
+					matrizMascara(2, 3) = 16;
+					matrizMascara(2, 4) = -2;
+					matrizMascara(2, 5) = -1;
+				}
+			}
+		}
+		else if (opcion == 4) {
+			//  Preguntar ruta de archivo .txt donde esta la matriz del filtro
+		}
+		else {
+			std::cout << endl << "ERROR: La opcion " << opcion << " no existe." << endl;
+			aux = true;
+		}
+
+		if (!aux) {
+			// Solicitamos al usuario la ruta donde sera guardada la imagen procesada
+			std::cout << endl << endl << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
+			std::getline(std::cin, ruta_imagen_sin_ruido);
+
+			// Escribamos el contenido de la matriz sobre un archivo
+			matrizResultado.Write(ruta_imagen_sin_ruido.c_str());
+		}
+
+		//
+		std::cout << endl << "Quiere utilizar el programa otra vez? (1 = si, 2 = no): ";
+		std::cin >> opcion;
+
+		// Ignorar el carÃ¡cter de nueva lÃ­nea pendiente
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		if (opcion == 1) {
+			std::system("cls");
+			aux = false;
+		}
+		else {
+			aux = true;
+		}
+
+	} while (!aux);
 }
