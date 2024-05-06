@@ -31,7 +31,7 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 	int mitadColumnasMascara = columnasMascara / 2;
 
 	// Declaramos un vector de entero cuyo caracter sera dinamico
-	std:vector<int> vector;
+    std::vector<int> vector;
 
 	// Iteramos sobre la matriz de la imagen
 	for (int fila = matrizImagen.FirstRow(); fila <= ultimaFilaMatrizImagen; fila++) {
@@ -50,7 +50,7 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 			// Ordenamos el vector
 			bubbleSort(vector);
 
-			// Reemplazamos el pixel de la matriz de la imagen por su mediana seg�n la mascara
+			// Rellenamos la matrizResultado con el valor correspondiente al pixel
 			matrizResultado(fila, columna) = vector[(vector.size()) / 2];
 
 			// Limpiamos el vector
@@ -59,46 +59,80 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 	}
 }
 
-/*
-	TERMINAR: METER ELEMENTOS DE LA MATRIZ DE LA MASCARA AL VECTOR, MULTIPLICAR ELEMENTOS DE VECTORES UNO Y A UNO, GUARDARLO EN UN VECTOR
-	RESULTADO Y MULTIPLICAR LOS ELEMENTOS DE DICHO VECTOR RESULTADO
-*/
-
 void convolucion(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara, C_Matrix& matrizMascara, C_Image& matrizResultado) {
 	// Almacenamos en variables los valores devueltos por las siguientes funciones para mejorar la eficiencia del programa
 	int primeraFilaMatrizImagen = matrizImagen.FirstRow();
 	int primeraColumnaMatrizImagen = matrizImagen.FirstCol();
 	int ultimaFilaMatrizImagen = matrizImagen.LastRow();
 	int ultimaColumnaMatrizImagen = matrizImagen.LastCol();
+	int primeraFilaMatrizMascara = matrizMascara.FirstRow();
+	int primeraColumnaMatrizMascara = matrizMascara.FirstCol();
 
 	// Dividimos la mascara por la mitad
 	int mitadFilasMascara = filasMascara / 2;
 	int mitadColumnasMascara = columnasMascara / 2;
 
+	// Definimos ciertos iteradores
+	int i, j;
+
 	// Declaramos un vector de entero cuyo caracter sera dinamico
-	std:vector<int> vector, vectorMascara;
+	std::vector<int> vectorImagen;
+	std::vector<double> vectorMascara, vectorResultado;
+
+	// Definimos cierta variable utilizada mas adelante
+	int suma = 0;
 
 	// Iteramos sobre la matriz de la imagen
 	for (int fila = matrizImagen.FirstRow(); fila <= ultimaFilaMatrizImagen; fila++) {
 		for (int columna = matrizImagen.FirstCol(); columna <= ultimaColumnaMatrizImagen; columna++) {
+			// Definimos iteradores
+			i = primeraFilaMatrizMascara;
 			// Iteramos sobre la mascara
 			for (int filaMascara = fila - mitadFilasMascara; filaMascara <= fila + mitadFilasMascara; filaMascara++) {
+				// Definimos iteradores
+				j = primeraColumnaMatrizMascara;
 				// Determinamos si la fila del pixel de la mascara seria valida con respecto a la matriz de la imagen
-				if (filaMascara < primeraFilaMatrizImagen || filaMascara > ultimaFilaMatrizImagen) continue;
+				if (filaMascara < primeraFilaMatrizImagen || filaMascara > ultimaFilaMatrizImagen) {
+					i++;
+					continue;
+				}
 				for (int columnaMascara = columna - mitadColumnasMascara; columnaMascara <= columna + mitadColumnasMascara; columnaMascara++) {
 					// Determinamos si la columna del pixel de la mascara seria valida con respecto a la matriz de la imagen
-					if (columnaMascara < primeraColumnaMatrizImagen || columnaMascara > ultimaColumnaMatrizImagen) continue;
+					if (columnaMascara < primeraColumnaMatrizImagen || columnaMascara > ultimaColumnaMatrizImagen) {
+						j++;
+						continue;
+					}
+
 					// Anadimos al vector
-					vector.push_back(matrizImagen(filaMascara, columnaMascara));
-					//vectorMascara.push_back(matrizMascara(fi))
+					vectorImagen.push_back(matrizImagen(filaMascara, columnaMascara));
+					//std::cout << "i, j: " << i << ", " << j;
+					vectorMascara.push_back(matrizMascara(i, j));
+					j++;
 				}
+				i++;
 			}
 
-			// Reemplazamos el pixel de la matriz de la imagen por su mediana seg�n la mascara
-			matrizResultado(fila, columna) = vector[(vector.size()) / 2];
+			// Los vectores obtenidos tienen la misma dimension
+			// Multiplicamos sus elementos uno a uno
+			for (int k = 0; k < vectorImagen.size(); k++) {
+				vectorResultado.push_back(((double)vectorImagen[k]) * vectorMascara[k]);
+			}
 
-			// Limpiamos el vector
-			vector.clear();
+			// Sumamos los elementos de vectorResultado
+			for (int k = 0; k < vectorResultado.size(); k++) {
+				suma += (int)vectorResultado[k];
+			}
+
+			// Rellenamos la matrizResultado con el valor correspondiente al pixel
+			matrizResultado(fila, columna) = suma;
+
+			// Limpiamos los vectores
+			vectorImagen.clear();
+			vectorMascara.clear();
+			vectorResultado.clear();
+
+			// Reiniciamos el contador de la suma
+			suma = 0;
 		}
 	}
 }
@@ -116,12 +150,12 @@ int main(int argc, char** argv)
 	// Las dos ultimas serviran para guardar tanto el numero de filas como el numero de columna de la matriz que estaremos utilizando como mascara 
 	// para el procesamiento de la imagen.
 	std::string ruta_imagen_ruido, ruta_imagen_sin_ruido, ruta_mascara;
-	C_Image matrizInicial, matrizResultado;
+	C_Image matrizImagen, matrizResultado;
 	C_Matrix matrizMascara;
 	int opcion, filasMascara, columnasMascara;
 	bool aux = false;
 
-	do 
+	do
 	{
 		// Realizamos la cabecera de nuestro programa
 		for (int i = 0; i < 91; i++) std::cout << "-";
@@ -141,12 +175,12 @@ int main(int argc, char** argv)
 		std::getline(std::cin, ruta_imagen_ruido);
 
 		// Obtenemos la matriz de la imagen 
-		matrizInicial.ReadBMP(ruta_imagen_ruido.c_str());
+		matrizImagen.ReadBMP(ruta_imagen_ruido.c_str());
 
 		// Controlar error para que si salta no pidamos ninguna opcion de procesado
 
 		// Matriz donde guardaremos el resultado de procesar sobre la matriz de la imagen
-		matrizResultado.Resize(matrizInicial.FirstRow(), matrizInicial.LastRow(), matrizInicial.FirstCol(), matrizInicial.LastCol(), 0);
+		matrizResultado.Resize(matrizImagen.FirstRow(), matrizImagen.LastRow(), matrizImagen.FirstCol(), matrizImagen.LastCol(), 0);
 
 		// Mostramos al usuario las opciones de procesado
 		std::cout << endl << "Opciones de procesado: " << std::endl << std::endl;
@@ -181,10 +215,10 @@ int main(int argc, char** argv)
 				aux == true;
 			}
 			else if (opcion == 11) {
-				mediana(matrizInicial, filasMascara, columnasMascara, matrizResultado);
+				mediana(matrizImagen, filasMascara, columnasMascara, matrizResultado);
 			}
 			else {
-				int constante = 1 / (filasMascara * columnasMascara);
+				double constante = 1.0 / ((double)(filasMascara * columnasMascara));
 				matrizMascara.Resize(1, filasMascara, 1, columnasMascara, 0);
 
 				for (int i = 1; i <= matrizMascara.LastRow(); i++) {
@@ -193,7 +227,7 @@ int main(int argc, char** argv)
 					}
 				}
 
-				convolucion(matrizInicial, filasMascara, columnasMascara, matrizMascara, matrizResultado);
+				convolucion(matrizImagen, filasMascara, columnasMascara, matrizMascara, matrizResultado);
 			}
 		}
 		else if (opcion == 22 || opcion == 31 || opcion == 32 || opcion == 33 || opcion == 35) {
