@@ -8039,3 +8039,18 @@ TDI E (C_Matrix,  246) Index out of matrix boundaries
 TDI E (C_Matrix,  246) Index out of matrix boundaries
 TDI E (C_Matrix,  246) Index out of matrix boundaries
 TDI E (C_Matrix,  246) Index out of matrix boundaries
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Matrix,  339) Wrong matrix limits
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Matrix,  339) Wrong matrix limits
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  182) BMP option erroneous or not implemented: NUM BITS PER PLANE : 32
+TDI E (C_Matrix,  339) Wrong matrix limits
+TDI E (C_Image_BMP,  160) File doesn't exist : joker.bmp
+TDI E (C_Matrix,  339) Wrong matrix limits
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  238) Matrix not suitable for BMP write
+TDI E (C_Image_BMP,  160) File doesn't exist : bear_ruido.bmo
+TDI E (C_Matrix,  339) Wrong matrix limits
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
