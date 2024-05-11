@@ -81,11 +81,7 @@ void convolucion(C_Image& matrizImagen, const int& filasMascara, const int& colu
 						j++;
 						continue;
 					}
-					/*std::cout << matrizImagen(filaMascara, columnaMascara) << " * " << matrizMascara(i, j) << endl;
-					getchar();*/
 					matrizResultado(fila, columna) += std::abs(matrizImagen(filaMascara, columnaMascara) * matrizMascara(i, j));
-					/*std::cout << "suma: " << matrizResultado(fila, columna) << endl;
-					getchar();*/
 					j++;
 				}
 				i++;
@@ -499,7 +495,16 @@ int main(int argc, char** argv)
 			convolucion(matrizImagen, 5, 5, matrizMascara, matrizResultado);
 		}
 		else if (opcion == 4) {
+			// Si se trabajan con decimales debe estar en su forma decimal, no fraccionaria. Indicar .txt al final de la ruta
+
 			//  Preguntar ruta de archivo .txt donde esta la matriz del filtro
+			std::cout << "Introduzca la ruta de la mascara: ";
+			std::getline(std::cin, ruta_mascara);
+
+			matrizMascara.Read(ruta_mascara.c_str());
+
+			convolucion(matrizImagen, matrizMascara.LastRow(), matrizMascara.LastCol(), matrizMascara, matrizResultado);
+
 		}
 		else {
 			std::cout << endl << "ERROR: La opcion " << opcion << " no existe." << endl;
