@@ -181,7 +181,7 @@ int main(int argc, char** argv)
 				convolucion(matrizImagen, filasMascara, columnasMascara, matrizMascara, matrizResultado);
 			}
 		}
-		else if (opcion == 22 || opcion == 31 || opcion == 32 || opcion == 33 || opcion == 35) {
+		else if (opcion == 22 || opcion >= 32 && opcion <= 35) {
 			matrizMascara.Resize(1, 3, 1, 3, 0);
 
 			if (opcion == 22) {
@@ -212,7 +212,7 @@ int main(int argc, char** argv)
 
 				convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 			}
-			else if (31 <= opcion <= 33) {
+			else if (opcion >= 31 && opcion <= 33) {
 				// Preguntar si quiere detectar horizantal, verticales o ambas
 				int a;
 				std::cout << "horizontal (1), vertical(2) o ambas(3)?: ";
@@ -238,10 +238,34 @@ int main(int argc, char** argv)
 						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 					}
 					else if (opcion == 32) {
-						
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = -1;
+						matrizMascara(1, 3) = -1;
+
+						matrizMascara(2, 1) = 0;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 0;
+
+						matrizMascara(3, 1) = 1;
+						matrizMascara(3, 2) = 1;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 					}
 					else {
-						
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = -2;
+						matrizMascara(1, 3) = -1;
+
+						matrizMascara(2, 1) = 0;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 0;
+
+						matrizMascara(3, 1) = 1;
+						matrizMascara(3, 2) = 2;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 					}
 				}
 				else if (a == 2) {
@@ -261,10 +285,34 @@ int main(int argc, char** argv)
 						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 					}
 					else if (opcion == 32) {
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = 0;
+						matrizMascara(1, 3) = 1;
 
+						matrizMascara(2, 1) = -1;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 1;
+
+						matrizMascara(3, 1) = -1;
+						matrizMascara(3, 2) = 0;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 					}
 					else {
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = 0;
+						matrizMascara(1, 3) = 1;
 
+						matrizMascara(2, 1) = -2;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 2;
+
+						matrizMascara(3, 1) = -1;
+						matrizMascara(3, 2) = 0;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 					}
 				}
 				else {
@@ -309,15 +357,116 @@ int main(int argc, char** argv)
 						}
 					}
 					else if (opcion == 32) {
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = -1;
+						matrizMascara(1, 3) = -1;
 
+						matrizMascara(2, 1) = 0;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 0;
+
+						matrizMascara(3, 1) = 1;
+						matrizMascara(3, 2) = 1;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultadoA);
+
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = 0;
+						matrizMascara(1, 3) = 1;
+
+						matrizMascara(2, 1) = -1;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 1;
+
+						matrizMascara(3, 1) = -1;
+						matrizMascara(3, 2) = 0;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultadoB);
+
+						for (int i = matrizResultado.FirstRow(); i <= matrizResultado.LastRow(); i++) {
+							for (int j = matrizResultado.FirstCol(); j <= matrizResultado.LastCol(); j++) {
+								matrizResultado(i, j) = matrizResultadoA(i, j) + matrizResultadoB(i, j);
+							}
+						}
 					}
 					else {
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = -2;
+						matrizMascara(1, 3) = -1;
 
+						matrizMascara(2, 1) = 0;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 0;
+
+						matrizMascara(3, 1) = 1;
+						matrizMascara(3, 2) = 2;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultadoA);
+
+						matrizMascara(1, 1) = -1;
+						matrizMascara(1, 2) = 0;
+						matrizMascara(1, 3) = 1;
+
+						matrizMascara(2, 1) = -2;
+						matrizMascara(2, 2) = 0;
+						matrizMascara(2, 3) = 2;
+
+						matrizMascara(3, 1) = -1;
+						matrizMascara(3, 2) = 0;
+						matrizMascara(3, 3) = 1;
+
+						convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultadoB);
+
+						for (int i = matrizResultado.FirstRow(); i <= matrizResultado.LastRow(); i++) {
+							for (int j = matrizResultado.FirstCol(); j <= matrizResultado.LastCol(); j++) {
+								matrizResultado(i, j) = matrizResultadoA(i, j) + matrizResultadoB(i, j);
+							}
+						}
 					}
 				}
 			}
 			else {
 				// Preguntar si quiere detectar diagonales tambien
+				int a;
+				std::cout << "diagonales? (si = 1, no = 2): ";
+				cin >> a;
+
+				// Ignorar el carácter de nueva línea pendiente
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+				if (a == 1) {
+					matrizMascara(1, 1) = 0;
+					matrizMascara(1, 2) = 1;
+					matrizMascara(1, 3) = 0;
+
+					matrizMascara(2, 1) = 1;
+					matrizMascara(2, 2) = -4;
+					matrizMascara(2, 3) = 1;
+
+					matrizMascara(3, 1) = 0;
+					matrizMascara(3, 2) = 1;
+					matrizMascara(3, 3) = 0;
+
+					convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
+				}
+				else {
+					matrizMascara(1, 1) = 1;
+					matrizMascara(1, 2) = 1;
+					matrizMascara(1, 3) = 1;
+
+					matrizMascara(2, 1) = 1;
+					matrizMascara(2, 2) = -8;
+					matrizMascara(2, 3) = 1;
+
+					matrizMascara(3, 1) = 1;
+					matrizMascara(3, 2) = 1;
+					matrizMascara(3, 3) = 1;
+
+					convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
+				}
 			}
 		}
 		else if (opcion == 34) {
@@ -386,6 +535,5 @@ int main(int argc, char** argv)
 
 			//LIMPIAR MATRIZ RESULTADO PARA EVITAR FUTUROS PROBLEMAS
 		}
-
 	} while (!aux);
 }
