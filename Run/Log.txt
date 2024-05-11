@@ -8054,3 +8054,56 @@ TDI E (C_Image_BMP,  238) Matrix not suitable for BMP write
 TDI E (C_Image_BMP,  160) File doesn't exist : bear_ruido.bmo
 TDI E (C_Matrix,  339) Wrong matrix limits
 TDI E (C_Image_BMP,  233) Can't write an empty matrix
+TDI E (C_Image_BMP,  238) Matrix not suitable for BMP write
+TDI E (C_Image_BMP,  238) Matrix not suitable for BMP write
+TDI E (C_Image_BMP,  288) Could not open file : 
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI E (C_Image_BMP,  288) Could not open file : 
+TDI E (C_Image_BMP,  238) Matrix not suitable for BMP write
+TDI E (C_Image_BMP,  238) Matrix not suitable for BMP write
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI W (C_Image_BMP,  253) Palette size must be 65536
+TDI W (C_Matrix_IO,  350) No. bits/pixel not standard : 16
+TDI E (C_Image_BMP,  160) File doesn't exist : Hercule_Gris.bmp
+TDI E (C_Matrix,  339) Wrong matrix limits
+TDI E (C_Image_BMP,  233) Can't write an empty matrix
