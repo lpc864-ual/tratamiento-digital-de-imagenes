@@ -27,7 +27,7 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 			for (int filaMascara = fila - mitadFilasMascara; filaMascara <= fila + mitadFilasMascara; filaMascara++) {
 				// Determinamos si la fila del pixel de la mascara seria valida con respecto a la matriz de la imagen
 				if (filaMascara < primeraFilaMatrizImagen || filaMascara > ultimaFilaMatrizImagen) continue;
-				
+
 				for (int columnaMascara = columna - mitadColumnasMascara; columnaMascara <= columna + mitadColumnasMascara; columnaMascara++) {
 					// Determinamos si la columna del pixel de la mascara seria valida con respecto a la matriz de la imagen
 					if (columnaMascara < primeraColumnaMatrizImagen || columnaMascara > ultimaColumnaMatrizImagen) continue;
@@ -41,7 +41,12 @@ void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnas
 			std::sort(vector.begin(), vector.end());
 
 			// Rellenamos la matrizResultado con el valor correspondiente al pixel
-			matrizResultado(fila, columna) = vector[vector.size() / 2];
+			if (vector.size() % 2 != 0) {
+				matrizResultado(fila, columna) = vector[vector.size() / 2];
+			}
+			else {
+				matrizResultado(fila, columna) = (vector[vector.size() / 2 - 1] + vector[vector.size() / 2]) / 2;
+			}
 
 			// Limpiamos el vector
 			vector.clear();
@@ -155,7 +160,7 @@ int main(int argc, char** argv)
 		std::cout << "Introduzca una opcion (P.E. 11): ";
 		std::cin >> opcion;
 
-		std::cout << endl << endl;
+		std::cout << endl;
 
 		// Ignoramos el carácter de nueva línea pendiente para evitar futuros problemas
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -181,7 +186,7 @@ int main(int argc, char** argv)
 		}
 
 		// El usuario ha escogido el filtro gaussiano, el filtro de roberts, el filtro de prewitt, el filtro de sobel o el filtro laplaciano
-		else if (opcion == 22 || opcion >= 32 && opcion <= 35) {
+		else if (opcion == 22 || opcion >= 31 && opcion <= 35) {
 			// Las mascaras en estos filtros siempre son de dimension 3x3
 			matrizMascara.Resize(1, 3, 1, 3, 0);
 
@@ -520,7 +525,7 @@ int main(int argc, char** argv)
 
 		if (!aux) {
 			// Solicitamos al usuario la ruta donde sera guardada la imagen procesada
-			std::cout << endl << endl << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
+			std::cout << endl << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
 			std::getline(std::cin, ruta_imagen_sin_ruido);;
 
 			// Limitamos los valores de los elementos de una imagen a un rango específico
