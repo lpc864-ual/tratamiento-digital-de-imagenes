@@ -135,7 +135,6 @@ int main(int argc, char** argv)
 		std::cout << "Introduzca la ruta de la imagen con intencion de procesar: ";
 		std::getline(std::cin, ruta_imagen_ruido);
 
-
 		// Obtenemos la matriz de la imagen 
 		matrizImagen.ReadBMP(ruta_imagen_ruido.c_str());
 
@@ -153,8 +152,8 @@ int main(int argc, char** argv)
 		std::cout << "   1. Filtro de Roberts" << std::endl;
 		std::cout << "   2. Filtro de Prewitt" << std::endl;
 		std::cout << "   3. Filtro de Sobel" << std::endl;
-		std::cout << "   4. Filtro de Marr-Hildreth" << std::endl;
-		std::cout << "   5. Filtro Laplaciano" << std::endl << std::endl;
+		std::cout << "   4. Filtro de Laplaciano" << std::endl; 
+		std::cout << "   5. Filtro de Marr-Hildreth" << std::endl << std::endl;
 		std::cout << "4. Personalizado" << std::endl << std::endl;
 
 		std::cout << "Introduzca una opcion (P.E. 11): ";
@@ -165,38 +164,35 @@ int main(int argc, char** argv)
 		// Ignoramos el carácter de nueva línea pendiente para evitar futuros problemas
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		// El usuario ha escogido el filtro de la mediana o de la media
-		if (opcion == 11 || opcion == 21) {
+		// El usuario ha escogido el filtro de la mediana, el filtro de la media o filtro gaussiano respectivamente
+		if (opcion == 11 || opcion == 21 || opcion == 22) {
 			std::cout << "Introduzca el numero de filas y columnas de la mascara (separados con un espacio): ";
 			std::cin >> filasMascara >> columnasMascara;
+
+			std::cout << endl;
+
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			
+			// Control de errores
 			if (filasMascara / 2 == 0 || columnasMascara / 2 == 0) {
 				std::cout << "ERROR: El numero de filas o columnas es par cuando deben ser impar. " << std::endl;
 				aux == true;
 			}
+			// Filtro de la mediana
 			else if (opcion == 11) {
 				mediana(matrizImagen, filasMascara, columnasMascara, matrizResultado);
 			}
-			else {
+			// Filtro de la media
+			else if (opcion == 21) {
 				double constante = 1.0 / ((double)(filasMascara * columnasMascara));
 				matrizMascara.Resize(1, filasMascara, 1, columnasMascara, constante);
 				convolucion(matrizImagen, filasMascara, columnasMascara, matrizMascara, matrizResultado);
 			}
-		}
-
-		// El usuario ha escogido el filtro gaussiano, el filtro de roberts, el filtro de prewitt, el filtro de sobel o el filtro laplaciano
-		else if (opcion == 22 || opcion >= 31 && opcion <= 35) {
-			// Las mascaras en estos filtros siempre son de dimension 3x3
-			matrizMascara.Resize(1, 3, 1, 3, 0);
-
 			// Filtro gaussiano
-			if (opcion == 22) {
-				double pi = 3.14159265358979323846;
-				double e = 2.718281828459045;
-				double total = 0.0;
-				double sigma;
-				
+			else {
+				matrizMascara.Resize(1, filasMascara, 1, columnasMascara, 0);
+				double pi = 3.14159265358979323846, e = 2.718281828459045, total = 0.0, sigma;
+
 				std::cout << "Introduzca el valor de sigma (valor fraccionario, p.e., 1.0): ";
 				std::cin >> sigma;
 
@@ -218,9 +214,15 @@ int main(int argc, char** argv)
 
 				convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
 			}
+		}
+
+		// El usuario ha escogido el filtro de roberts, el filtro de prewitt, el filtro de sobel o el filtro laplaciano respectivamente
+		else if (opcion >= 31 && opcion <= 34) {
+			// Las mascaras en estos filtros siempre son de dimension 3x3
+			matrizMascara.Resize(1, 3, 1, 3, 0);
 
 			// Filtro de roberts, filtro de prewitt o filtro de sobel respectivamente
-			else if (opcion >= 31 && opcion <= 33) {
+			if (opcion >= 31 && opcion <= 33) {
 				int x;
 				std::cout << "La deteccion de bordes se realizara sobre bordes horizontales (1), verticales (2) o ambos (3)?: ";
 				cin >> x;
@@ -475,7 +477,7 @@ int main(int argc, char** argv)
 		}
 
 		// El usuario ha escogido el filtro de Marr-Hildreth
-		else if (opcion == 34) {
+		else if (opcion == 35) {
 			// La mascara utilizada en este filtro tiene dimension 5x5
 			matrizMascara.Resize(1, 5, 1, 5, 0);
 
@@ -525,7 +527,7 @@ int main(int argc, char** argv)
 
 		if (!aux) {
 			// Solicitamos al usuario la ruta donde sera guardada la imagen procesada
-			std::cout << endl << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
+			std::cout << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
 			std::getline(std::cin, ruta_imagen_sin_ruido);;
 
 			// Limitamos los valores de los elementos de una imagen a un rango específico
