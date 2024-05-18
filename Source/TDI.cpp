@@ -1,9 +1,25 @@
+// Libreria utilizada para trabajar con cadenas de caracteres
+#include <string>
+
+// Libreria para operaciones de entrada y salida
 #include <iostream>
+
+// Libreria que proporciona funciones matemáticas
 #include <cmath>
+
+// Librería que define la plantilla para trabajar con vectores de elementos
 #include <vector>
+
+// Libreria que proporciona una colección de algoritmos que pueden usarse con contenedores estándar
 #include <algorithm>
+
+// Libreria que incluye funciones generales de propósito amplio
 #include <cstdlib>
+
+// Libreria de la asignatura para trabajar con matrices
 #include <C_Matrix.hpp>
+
+// Libreria de la asignatura para trabajar con imagenes
 #include <C_Image.hpp>
 
 void mediana(C_Image& matrizImagen, const int& filasMascara, const int& columnasMascara, C_Image& matrizResultado) {
@@ -212,7 +228,7 @@ int main(int argc, char** argv)
 					}
 				}
 
-				convolucion(matrizImagen, 3, 3, matrizMascara, matrizResultado);
+				convolucion(matrizImagen, filasMascara, columnasMascara, matrizMascara, matrizResultado);
 			}
 		}
 
@@ -527,31 +543,36 @@ int main(int argc, char** argv)
 
 		if (!aux) {
 			// Solicitamos al usuario la ruta donde sera guardada la imagen procesada
-			std::cout << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
+			std::cout << endl << "Introduzca la ruta donde sera la guardada la imagen procesada: ";
 			std::getline(std::cin, ruta_imagen_sin_ruido);;
 
 			// Limitamos los valores de los elementos de una imagen a un rango específico
 			matrizResultado.Trunc(0, 255);
 
+			// Igualamos las paletas  
 			matrizResultado.palette = matrizImagen.palette;
 
 			// Escribamos el contenido de la matriz sobre un archivo
 			matrizResultado.WriteBMP(ruta_imagen_sin_ruido.c_str());
 		}
 
-		//
 		std::cout << endl << "Quiere utilizar el programa otra vez? (si = 1, no = 2): ";
 		std::cin >> opcion;
 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		if (opcion == 1) {
+			// Limpiamos la ventana
 			std::system("cls");
+
+			// Limpiamos las matrices utilizadas
 			matrizImagen.Free();
 			matrizMascara.Free();
 			matrizResultadoA.Free();
 			matrizResultadoB.Free();
 			matrizResultado.Free();
+
+			// Reiniciamos el valor de variables
 			aux = false;
 		}
 		else {

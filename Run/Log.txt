@@ -6,3 +6,6 @@ TDI E (C_Image_BMP,  160) File doesn't exist : Hercules_Gris.bmp
 TDI E (C_Matrix,  339) Wrong matrix limits
 TDI E (C_Image_BMP,  160) File doesn't exist : Hercules_Gris.bmp
 TDI E (C_Matrix,  339) Wrong matrix limits
+TDI W (C_Image_BMP,  245) Palette size must be 256
+TDI W (C_Image_BMP,  245) Palette size must be 256
+TDI E (C_Image_BMP,  288) Could not open file : 
